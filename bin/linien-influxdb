@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pth=`python3 -c 'lidb = __import__("linien-influxdb"); print(lidb.__path__[0]);'`
+python3 $pth/run.py $1
