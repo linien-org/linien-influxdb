@@ -28,7 +28,7 @@ class Runner:
 
         self.pull_data_time = 0
         self.push_data_time = 0
-        self.push_data = None
+        self.push_counter = 0
         self.last_print_time = 0
 
     def run(self):
@@ -46,10 +46,11 @@ class Runner:
         if self.pull.poll():
             self.pull_data = self.pull.recv()
             self.pull_data_time = time()
-            self.push.send(self.pull_data)
+            if self.pull_data is not None:
+                self.push.send(self.pull_data)
 
         if self.push.poll():
-            self.push_data = self.push.recv()
+            self.push_counter = self.push.recv()
             self.push_data_time = time()
 
     def print_status(self):
@@ -71,8 +72,9 @@ class Runner:
             print(
                 '   '.join((
                     datetime.now().strftime('%H:%M:%S'),
-                    'Lock: ' + status(pull_live),
-                    'InfluxDB: ' + status(push_live),
+                    (colors.bold | 'Lock: ') + status(pull_live),
+                    (colors.bold | 'InfluxDB: ') + status(push_live),
+                    (colors.bold | 'Log entries: ') + str(self.push_counter),
                     '       '
                 )),
                 end="\r"
@@ -82,19 +84,33 @@ class Runner:
 @click.command()
 @click.argument('config')
 def run(config):
+    # don't print characters that are typed in the console
+    import os
+    os.system("stty -echo")
+
     assert config.endswith('.py'), 'config file is not a python file'
     config = config.rstrip('.py')
 
-    os.chdir(
-        os.path.abspath(os.path.join(*os.path.split(config)[:-1]))
-    )
+    try:
+        os.chdir(
+            os.path.abspath(os.path.join(*os.path.split(config)[:-1]))
+        )
+    except FileNotFoundError:
+        raise Exception('folder of config file is not reachable')
 
-    cfg = __import__(config)
+    try:
+        cfg = __import__(config)
+    except:
+        from traceback import print_exc
+        print_exc()
+        raise Exception('config file is not readable')
 
     for attr in dir(default_config):
         if not attr.startswith('_'):
             if not hasattr(cfg, attr):
                 setattr(cfg, attr, getattr(default_config, attr))
+
+    assert cfg.influxdb_database is not None, 'influxdb_database is not specified in config'
 
     runner = Runner(cfg)
     runner.run()
