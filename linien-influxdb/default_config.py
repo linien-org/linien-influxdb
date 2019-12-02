@@ -23,10 +23,10 @@ data_fields = (
     'lock',                 # is the laser locked?
 
     # the following parameters are only logged if the laser is locked
-    #'control_signal',       # the mean value of the control signal
-    #'error_signal',         # the mean value of the control signal
-    #'control_signal_std',   # the standard deviation of the control signal
-    #'error_signal_std',     # the standard deviation of the error signal
+    'control_signal',       # the mean value of the control signal
+    'error_signal',         # the mean value of the control signal
+    'control_signal_std',   # the standard deviation of the control signal
+    'error_signal_std',     # the standard deviation of the error signal
     'p', 'i', 'd',          # the PID parameters,
     'modulation_amplitude', # amplitude of modulation frequency for spectroscopy
     'modulation_frequency', # frequency of modulation for spectroscopy
