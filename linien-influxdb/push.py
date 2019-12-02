@@ -18,7 +18,9 @@ class Pusher:
             port=self.cfg.influxdb_port,
             username=self.cfg.influxdb_user,
             password=self.cfg.influxdb_password,
-            database=self.cfg.influxdb_database
+            database=self.cfg.influxdb_database,
+            ssl=self.cfg.influxdb_ssl,
+            verify_ssl=self.cfg.influxdb_verify_ssl
         )
         # this forces a check whether the database really exists
         self.check_connection()

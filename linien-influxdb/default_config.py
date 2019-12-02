@@ -13,6 +13,8 @@ influxdb_password = None # optional
 influxdb_database = None
 influxdb_measurement = 'linien'
 influxdb_tags = {}
+influxdb_ssl = False
+influxdb_verify_ssl = True
 
 # which fields should be logged?
 # notice that all parameters are only logged when the lock is turned on (not in
