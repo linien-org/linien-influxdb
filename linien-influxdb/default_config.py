@@ -23,15 +23,17 @@ data_fields = (
     'lock',                 # is the laser locked?
 
     # the following parameters are only logged if the laser is locked
-    'control_signal',       # the mean value of the control signal
-    'error_signal',         # the mean value of the control signal
-    'control_signal_std',   # the standard deviation of the control signal
-    'error_signal_std',     # the standard deviation of the error signal
+    #'control_signal',       # the mean value of the control signal
+    #'error_signal',         # the mean value of the control signal
+    #'control_signal_std',   # the standard deviation of the control signal
+    #'error_signal_std',     # the standard deviation of the error signal
     'p', 'i', 'd',          # the PID parameters,
     'modulation_amplitude', # amplitude of modulation frequency for spectroscopy
     'modulation_frequency', # frequency of modulation for spectroscopy
-    'demodulation_phase',   # demodulation phase for spectroscopy
-    'demodulation_multiplier', # demodulation frequency multiplier for spectroscopy
+    'demodulation_phase_a',   # demodulation phase for spectroscopy
+    'demodulation_multiplier_a', # demodulation frequency multiplier for spectroscopy
+    'demodulation_phase_b',   # demodulation phase for spectroscopy
+    'demodulation_multiplier_b', # demodulation frequency multiplier for spectroscopy
 )
 
 echo_status_interval = 1 # in seconds

@@ -77,8 +77,10 @@ class DataPreparation:
         'd': ('d',),
         'modulation_amplitude': ('modulation_amplitude',),
         'modulation_frequency': ('modulation_frequency',),
-        'demodulation_phase': ('demodulation_phase',),
-        'demodulation_multiplier': ('demodulation_multiplier',),
+        'demodulation_phase_a': ('demodulation_phase_a',),
+        'demodulation_multiplier_a': ('demodulation_multiplier_a',),
+        'demodulation_phase_b' : ('demodulation_phase_b',),
+        'demodulation_multiplier_b': ('demodulation_multiplier_b',),
         'lock': ('lock',)
     }
 
