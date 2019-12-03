@@ -13,6 +13,8 @@ influxdb_password = None # optional
 influxdb_database = None
 influxdb_measurement = 'linien'
 influxdb_tags = {}
+influxdb_ssl = False
+influxdb_verify_ssl = True
 
 # which fields should be logged?
 # notice that all parameters are only logged when the lock is turned on (not in
@@ -28,8 +30,10 @@ data_fields = (
     'p', 'i', 'd',          # the PID parameters,
     'modulation_amplitude', # amplitude of modulation frequency for spectroscopy
     'modulation_frequency', # frequency of modulation for spectroscopy
-    'demodulation_phase',   # demodulation phase for spectroscopy
-    'demodulation_multiplier', # demodulation frequency multiplier for spectroscopy
+    'demodulation_phase_a',   # demodulation phase for spectroscopy
+    'demodulation_multiplier_a', # demodulation frequency multiplier for spectroscopy
+    'demodulation_phase_b',   # demodulation phase for spectroscopy
+    'demodulation_multiplier_b', # demodulation frequency multiplier for spectroscopy
 )
 
 echo_status_interval = 1 # in seconds
