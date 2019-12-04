@@ -6,7 +6,7 @@ from time import sleep, time
 from datetime import datetime
 
 from linien.communication.client import BaseClient
-
+from linien.common import MHz, Vpp
 
 class Puller:
     def __init__(self, pipe, cfg):
@@ -124,7 +124,14 @@ class DataPreparation:
         for field in self.data_fields:
             if not params['lock'] and field != 'lock':
                 continue
-            data[field] = params[field]
+            if 'signal' in field:
+                # Convert to mV
+                data[field] = params[field] / Vpp 
+            elif field is 'modulation_frequency':
+                # convert to Mhz
+                data[field] = params[field] / MHz
+            else:
+                data[field] = params[field]
         return data
 
 def pull_data(pipe, cfg):
