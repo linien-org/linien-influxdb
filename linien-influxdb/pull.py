@@ -106,7 +106,7 @@ class DataPreparation:
         params = {}
 
         for key in param_keys:
-            if key is 'to_plot':
+            if key == 'to_plot':
                 # special treatment for input and output signals
                 to_plot = pickle.loads(self.connection.parameters.to_plot.value)
                 for signal_key in ['control_signal', 'error_signal']:
@@ -127,7 +127,7 @@ class DataPreparation:
             if 'signal' in field:
                 # Convert to mV
                 data[field] = params[field] / Vpp 
-            elif field is 'modulation_frequency':
+            elif field == 'modulation_frequency':
                 # convert to Mhz
                 data[field] = params[field] / MHz
             else:
