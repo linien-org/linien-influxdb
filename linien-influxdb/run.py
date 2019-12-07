@@ -1,5 +1,6 @@
 import os
 import click
+import atexit
 
 from time import time, sleep
 from plumbum import colors
@@ -84,9 +85,7 @@ class Runner:
 @click.command()
 @click.argument('config')
 def run(config):
-    # don't print characters that are typed in the console
-    import os
-    os.system("stty -echo")
+    print_characters_in_terminal(False)
 
     assert config.endswith('.py'), 'config file is not a python file'
     config = config.rstrip('.py')
@@ -112,8 +111,18 @@ def run(config):
 
     assert cfg.influxdb_database is not None, 'influxdb_database is not specified in config'
 
+    def shutdown(*args, **kwargs):
+        print('')
+        print_characters_in_terminal(True)
+    atexit.register(shutdown)
+
     runner = Runner(cfg)
     runner.run()
+
+
+def print_characters_in_terminal(do):
+    """print or don't print characters that are typed in the console"""
+    os.system("stty %secho" % ('' if do else '-'))
 
 
 if __name__ == '__main__':
