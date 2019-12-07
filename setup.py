@@ -22,6 +22,6 @@ setuptools.setup(
         'bin/linien-influxdb'
     ],
     install_requires=[
-        'linien', 'rpyc>=4.1.0', 'plumbum>=1.6.7', 'click>=7.0'
+        'linien', 'rpyc>=4.1.0', 'plumbum>=1.6.7', 'click>=7.0', 'influxdb', 'atexit'
     ]
 )
