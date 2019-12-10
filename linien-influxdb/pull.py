@@ -39,7 +39,6 @@ class Puller:
         self.dp = DataPreparation(self.connection, self.cfg.data_fields)
 
     def pull(self):
-        params = self.connection.parameters
 
         while True:
             start_time = time()
