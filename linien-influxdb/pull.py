@@ -36,7 +36,8 @@ class Puller:
     def connect(self):
         # FIXME: check remote version
         self.connection = BaseClient(self.cfg.linien_host, self.cfg.linien_port, False)
-        self.dp = DataPreparation(self.connection, self.cfg.data_fields)
+        self.dp = DataPreparation(self.connection, self.cfg.data_fields, 
+                                    lock_status_as_int=self.cfg.lock_status_as_int)
 
     def pull(self):
 
@@ -83,9 +84,10 @@ class DataPreparation:
         'lock': ('lock',)
     }
 
-    def __init__(self, connection, data_fields):
+    def __init__(self, connection, data_fields, lock_status_as_int=False):
         self.connection = connection
         self.data_fields = data_fields
+        self.lock_status_as_int = lock_status_as_int
 
     def load_data(self):
         params = self.load_parameters()
@@ -131,6 +133,8 @@ class DataPreparation:
                 data[field] = params[field] / MHz
             else:
                 data[field] = params[field]
+        if self.lock_status_as_int:
+            data['lock'] = int(data['lock'])
         return data
 
 def pull_data(pipe, cfg):

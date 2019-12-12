@@ -36,6 +36,9 @@ data_fields = (
     'demodulation_multiplier_b', # demodulation frequency multiplier for spectroscopy
 )
 
+# Convert lock status from boolean to integer (for better grafana compatibility)
+lock_status_as_int = False
+
 echo_status_interval = 1 # in seconds
 # if the influxdb server is down, how many values should be cached?
 max_queue_length = 1000
