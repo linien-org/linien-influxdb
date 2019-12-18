@@ -5,10 +5,10 @@ with open("README.rst", "r") as fh:
 
 setuptools.setup(
     name="linien-influxdb",
-    version='0.0.2',
+    version='1.0.0',
     author="Benjamin Wiegand",
     author_email="highwaychile@posteo.de",
-    description="Lock status of linien to influxdb",
+    description="Log status of linien locking application to influxdb",
     long_description=long_description,
     long_description_content_type="text/x-rst",
     url="https://github.com/hermitdemschoenenleben/linien-influxdb",
