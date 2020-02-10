@@ -127,7 +127,7 @@ class DataPreparation:
                 continue
             if 'signal' in field:
                 # Convert to mV
-                data[field] = params[field] / Vpp 
+                data[field] = params[field] / Vpp / 2 
             elif field == 'modulation_frequency':
                 # convert to Mhz
                 data[field] = params[field] / MHz
