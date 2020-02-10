@@ -5,10 +5,10 @@ with open("README.rst", "r") as fh:
 
 setuptools.setup(
     name="linien-influxdb",
-    version='0.0.2',
+    version='1.0.0',
     author="Benjamin Wiegand",
     author_email="highwaychile@posteo.de",
-    description="Lock status of linien to influxdb",
+    description="Log status of linien locking application to influxdb",
     long_description=long_description,
     long_description_content_type="text/x-rst",
     url="https://github.com/hermitdemschoenenleben/linien-influxdb",
@@ -22,6 +22,6 @@ setuptools.setup(
         'bin/linien-influxdb'
     ],
     install_requires=[
-        'linien', 'rpyc>=4.1.0', 'plumbum>=1.6.7', 'click>=7.0', 'influxdb', 'atexit'
+        'linien', 'rpyc>=4.1.0', 'plumbum>=1.6.7', 'click>=7.0', 'influxdb'
     ]
 )
