@@ -52,26 +52,21 @@ class LinienConnection:
 
 @click.command()
 @click.version_option()
-@click.option(
-    "--config",
-    "config_file",
-    type=click.Path(exists=True),
-    help="Configuration file path.",
-    required=True,
-)
-def main(config_file):
-    config = ConfigParser(
+@click.argument("config", type=click.Path(exists=True))
+def main(config):
+    """Logs Linien parameters according to the configuration in CONFIG ini file."""
+    config_parser = ConfigParser(
         converters={"list": lambda x: [i.strip() for i in x.split(",")]}
     )
-    config.read(config_file)
+    config_parser.read(config)
 
-    bucket = config["influx2"]["bucket"]
-    interval = config["linien"].getfloat("interval")
-    measurement = config["linien"]["measurement"]
-    parameters = config["linien"].getlist("parameters")
-    host = config["linien"]["host"]
-    username = config["linien"]["username"]
-    password = config["linien"]["password"]
+    bucket = config_parser["influx2"]["bucket"]
+    interval = config_parser["linien"].getfloat("interval")
+    measurement = config_parser["linien"]["measurement"]
+    parameters = config_parser["linien"].getlist("parameters")
+    host = config_parser["linien"]["host"]
+    username = config_parser["linien"]["username"]
+    password = config_parser["linien"]["password"]
 
     if len(parameters) == 1 and parameters[0] == "":
         raise ValueError(
@@ -80,7 +75,7 @@ def main(config_file):
 
     connection = LinienConnection(host, username, password)
 
-    with InfluxDBClient.from_config_file(config_file) as client:
+    with InfluxDBClient.from_config_file(config) as client:
         write_api = client.write_api()
 
         while True:

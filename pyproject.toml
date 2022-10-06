@@ -30,7 +30,7 @@ isort = "^5.10.1"
 Flake8-pyproject = "^1.1.0.post0"
 
 [tool.poetry.scripts]
-influxdb-logger = "influxdb_logger.app:main"
+linien-influxdb = "linien_influxdb.app:main"
 
 [tool.flake8]
 max-line-length = 88
