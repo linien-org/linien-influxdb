@@ -146,6 +146,21 @@ pycodestyle = ">=2.9.0,<2.10.0"
 pyflakes = ">=2.5.0,<2.6.0"
 
 [[package]]
+name = "Flake8-pyproject"
+version = "1.1.0.post0"
+description = "Flake8 plug-in loading the configuration from pyproject.toml"
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+Flake8 = ">=5,<6"
+TOMLi = {version = "*", markers = "python_version < \"3.11\""}
+
+[package.extras]
+test = ["pyTest", "pyTest-cov"]
+
+[[package]]
 name = "identify"
 version = "2.5.6"
 description = "File identification library for Python"
@@ -593,7 +608,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "93589fecf81e9cdd2700ba35643878c1046fb62cfb9f7b91c6a7935267a051b9"
+content-hash = "5ab7907fa5a62652e4e18d15aaa610d2167e1466b2d5546d202e04866144562c"
 
 [metadata.files]
 bcrypt = [
@@ -760,6 +775,9 @@ filelock = [
 flake8 = [
     {file = "flake8-5.0.4-py2.py3-none-any.whl", hash = "sha256:7a1cf6b73744f5806ab95e526f6f0d8c01c66d7bbe349562d22dfca20610b248"},
     {file = "flake8-5.0.4.tar.gz", hash = "sha256:6fbe320aad8d6b95cec8b8e47bc933004678dc63095be98528b7bdd2a9f510db"},
+]
+Flake8-pyproject = [
+    {file = "flake8_pyproject-1.1.0.post0-py3-none-any.whl", hash = "sha256:55bc7cbb4272dca45ba42521954452be9d443237fa9b78a09d0424bbd5c94fab"},
 ]
 identify = [
     {file = "identify-2.5.6-py2.py3-none-any.whl", hash = "sha256:b276db7ec52d7e89f5bc4653380e33054ddc803d25875952ad90b0f012cbcdaa"},
