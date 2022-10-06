@@ -53,16 +53,23 @@ class LinienConnection:
 @click.command()
 @click.version_option()
 @click.argument("config", type=click.Path(exists=True))
-def main(config):
+@click.option(
+    "--print-only",
+    default=False,
+    is_flag=True,
+    help="Do not write the logged data to influxdb.",
+)
+def main(config, print_only):
     """Logs Linien parameters according to the configuration in CONFIG ini file."""
     config_parser = ConfigParser(
         converters={"list": lambda x: [i.strip() for i in x.split(",")]}
     )
     config_parser.read(config)
 
-    bucket = config_parser["influx2"]["bucket"]
+    if not print_only:
+        bucket = config_parser["influx2"]["bucket"]
+        measurement = config_parser["influx2"]["measurement"]
     interval = config_parser["linien"].getfloat("interval")
-    measurement = config_parser["linien"]["measurement"]
     parameters = config_parser["linien"].getlist("parameters")
     host = config_parser["linien"]["host"]
     username = config_parser["linien"]["username"]
@@ -75,16 +82,20 @@ def main(config):
 
     connection = LinienConnection(host, username, password)
 
-    with InfluxDBClient.from_config_file(config) as client:
-        write_api = client.write_api()
-
+    if not print_only:
+        with InfluxDBClient.from_config_file(config) as client:
+            write_api = client.write_api()
+            while True:
+                point = Point(measurement)
+                parameters = connection.get_parameters(parameters=parameters)
+                print(parameters)
+                for key, value in parameters.items():
+                    point.field(key, value)
+                write_api.write(bucket=bucket, record=point)
+                sleep(interval)
+    else:
         while True:
-            point = Point(measurement)
             parameters = connection.get_parameters(parameters=parameters)
-            print(parameters)
-            for key, value in parameters.items():
-                point.field(key, value)
-            write_api.write(bucket=bucket, record=point)
             sleep(interval)
 
 
