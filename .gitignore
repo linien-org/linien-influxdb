@@ -17,3 +17,5 @@ linien_influxdb.egg-info
 linien_influxdb.egg-info/*
 *.egg-info
 *.egg-info/*
+
+linien_influxdb/_version.py
