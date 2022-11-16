@@ -1,5 +1,6 @@
 from configparser import ConfigParser
 from time import sleep
+from typing import Any, Dict, List
 
 import click
 from influxdb_client import InfluxDBClient, Point
@@ -7,12 +8,12 @@ from linien.client.connection import LinienClient, MHz, Vpp
 
 
 class LinienConnection:
-    def __init__(self, host, username="root", password="root"):
+    def __init__(self, host: str, username: str = "root", password: str = "root"):
         self.client = LinienClient(
             {"host": host, "username": username, "password": password}
         )
 
-    def get_parameters(self, parameters):
+    def get_parameters(self, parameters: List[str]) -> Dict[str, Any]:
 
         # get the `signal_stats` parameter only once and only if required
         stats_suffices = ["_min", "_max", "_mean", "_std"]
@@ -59,7 +60,7 @@ class LinienConnection:
     is_flag=True,
     help="Do not write the logged data to influxdb.",
 )
-def main(config, print_only):
+def main(config: str, print_only: bool):
     """Logs Linien parameters according to the configuration in CONFIG ini file."""
     config_parser = ConfigParser(
         converters={"list": lambda x: [i.strip() for i in x.split(",")]}
