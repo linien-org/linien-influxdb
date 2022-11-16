@@ -70,12 +70,12 @@ def main(config, print_only):
         bucket = config_parser["influx2"]["bucket"]
         measurement = config_parser["influx2"]["measurement"]
     interval = config_parser["linien"].getfloat("interval")
-    parameters = config_parser["linien"].getlist("parameters")
+    requested_parameters = config_parser["linien"].getlist("parameters")
     host = config_parser["linien"]["host"]
     username = config_parser["linien"]["username"]
     password = config_parser["linien"]["password"]
 
-    if len(parameters) == 1 and parameters[0] == "":
+    if len(requested_parameters) == 1 and requested_parameters[0] == "":
         raise ValueError(
             "No parameters requested. Add at least one parameter in the .ini file."
         )
@@ -87,15 +87,15 @@ def main(config, print_only):
             write_api = client.write_api()
             while True:
                 point = Point(measurement)
-                parameters = connection.get_parameters(parameters=parameters)
+                parameters = connection.get_parameters(parameters=requested_parameters)
                 print(parameters)
-                for key, value in parameters.items():
+                for key, value in requested_parameters.items():
                     point.field(key, value)
                 write_api.write(bucket=bucket, record=point)
                 sleep(interval)
     else:
         while True:
-            parameters = connection.get_parameters(parameters=parameters)
+            parameters = connection.get_parameters(parameters=requested_parameters)
             print(parameters)
             sleep(interval)
 
