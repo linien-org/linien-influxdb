@@ -96,6 +96,7 @@ def main(config, print_only):
     else:
         while True:
             parameters = connection.get_parameters(parameters=parameters)
+            print(parameters)
             sleep(interval)
 
 
