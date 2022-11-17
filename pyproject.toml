@@ -39,8 +39,8 @@ dev = [
 [tool.setuptools_scm]
 
 [project.urls]
-homepage = "https://github.com/linien-org/linien/"
-repository = "https://github.com/linien-org/linien/"
+homepage = "https://github.com/linien-org/linien-influxdb/"
+repository = "https://github.com/linien-org/linien-influxdb/"
 
 [project.scripts]
 linien-influxdb = "linien_influxdb.app:main"
