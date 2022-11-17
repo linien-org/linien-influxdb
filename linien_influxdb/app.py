@@ -90,7 +90,7 @@ def main(config: str, print_only: bool):
                 point = Point(measurement)
                 parameters = connection.get_parameters(parameters=requested_parameters)
                 print(parameters)
-                for key, value in requested_parameters.items():
+                for key, value in parameters.items():
                     point.field(key, value)
                 write_api.write(bucket=bucket, record=point)
                 sleep(interval)
