@@ -14,7 +14,6 @@ class LinienConnection:
         )
 
     def get_parameters(self, parameters: List[str]) -> Dict[str, Any]:
-
         # get the `signal_stats` parameter only once and only if required
         stats_suffices = ["_min", "_max", "_mean", "_std"]
         if any(
