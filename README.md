@@ -1,3 +1,6 @@
+:no_entry: [DEPRECATED] InfluxDB logging is integrated into the [Linien](https://github.com/linien-org/linien) since v0.8.0.
+
+
 Logs the status of a [linien](https://github.com/linien-org/linien) spectroscopy lock server to influxdb.
 
 # Installation
